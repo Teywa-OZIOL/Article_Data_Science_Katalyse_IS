@@ -3,7 +3,7 @@
 
 <p align="justify">
 Si vous disposez de données structurées et si vous souhaitez que votre algorithme de Machine Learning soit le plus performant possible, l'utilisation d'une méthode ensembliste s'avère souvent être le bon choix. D'ailleurs, l'algorithme roi des compétitions de Machine Learning (XGBoost) est un algorithme ensembliste.
-<\p>
+</p>
 
 <p align="justify">
  Nous définirons le concept d’ensemble learning dans ce premier article de la série puis nous expliquerons deux types d’ensemble learning : boosting et le bagging.
