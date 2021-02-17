@@ -82,15 +82,60 @@ On commence par une étape de feature engeneering pour créer de nouvelles varia
 Avant d’entrainer le modèle, on réalise un sur-échantillonage pour rééquilibrer les classes car le nombre de personnes souhaitant quitter la banque est largement inférieur au nombre de personnes souhaitant rester.
 </p>
 
+```python
+oversample = SVMSMOTE()
+X_train, y_train = oversample.fit_resample(X_train, y_train)
+```
+
+
 ### Entrainement du modèle
 
 <p align="justify">
 On peut maintenant entrainer le modèle. On construit une grille de recherche et on teste plusieurs combinaisons d’hyperparamètres afin de trouver le meilleur modèle possible. L’optimisation se fait au sens de l’AUC (aire sous la courbe ROC) car les classes sont déséquilibrés. 
 </p>
 
+```python
+params = {
+        'booster' : ['gbtree'],
+        'eta' : [0,0.05,0.1,0.2,0.4],
+        'min_child_weight': [1, 5, 10],
+        'alpha': [0,0.05,0.5],
+        'gamma': [0,0.01,0.05],
+        'lambda' : [1,0,0.5],
+        'max_depth': [3, 4, 5],
+        'n_estimators' : [100,500,1000]
+        }
+
+xgb = XGBClassifier(objective='binary:logistic', nthread=1)
+
+folds = 2
+param_comb = 5
+
+skf = StratifiedKFold(n_splits=folds, shuffle = True, random_state = 42)
+
+random_search = RandomizedSearchCV(xgb, param_distributions=params, n_iter=param_comb, scoring='roc_auc', 
+                                   n_jobs=4, cv=skf.split(X_train,y_train), verbose=3, random_state = 42)
+
+random_search.fit(X_train, y_train)
+```
+
 <p align="justify">
 Le modèle qui maximise l’AUC est le modèle suivant :
 </p>
+
+```python
+xgb2 = XGBClassifier(alpha=0.5, base_score=0.5, booster='gbtree', colsample_bylevel=1,
+              colsample_bynode=1, colsample_bytree=1, eta=0.2, gamma=0,
+              gpu_id=-1, importance_type='gain', interaction_constraints='',
+              learning_rate=0.200000003, max_delta_step=0,
+              max_depth=5, min_child_weight=10, missing=np.nan,
+              monotone_constraints='()', n_estimators=100, n_jobs=1, nthread=1,
+              num_parallel_tree=1, random_state=0, reg_alpha=0.5, reg_lambda=1,
+              scale_pos_weight=1, subsample=1, tree_method='exact',
+              validate_parameters=1, verbosity=None)
+
+xgb2.fit(X_train,y_train)
+```
 
 ### Analyse des résultats
 
