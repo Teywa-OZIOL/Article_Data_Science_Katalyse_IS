@@ -102,5 +102,6 @@ L’Extreme Gradient Boosting reprend les bases du Gradient Boosting, on initial
 </p>
 
 <p align="justify">
-Cet algorithme est extrêmement performant dans les compétitions de Machine Learning. Si vous souhaitez voir l’implémentation de XGBoost sur python, cliquez ici.
+Cet algorithme est extrêmement performant dans les compétitions de Machine Learning. Si vous souhaitez voir l’implémentation de XGBoost sur python, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cliquez ici</a>.
 </p>
+
