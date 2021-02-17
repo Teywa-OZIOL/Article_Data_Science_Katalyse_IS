@@ -1,4 +1,4 @@
-# Article 4 de la série sur l'ensemble learning
+# Article 3 de la série sur l'ensemble learning
 ## Implémentation d’XGBoost en python pour prédire les individus souhaitant quitter une banque (churn)
 
 <p align="justify">
