@@ -37,6 +37,43 @@ La phase d’analyse exploratoire nous apprend qu’il n’y a pas de valeurs ma
 On peut maintenant réaliser le preprocessing des données. Nous créons au préalable une base d’entrainement et une base de test en utilisant la fonction « train_test_split() ». Voici le preprocessing effectué :
 </p>
 
+```python
+def feature_engineering_and_discretization(df2):
+    df = df2.copy()
+    df["CreditScoreDiscr"] = pd.qcut(df["CreditScore"], 10, labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    df["AgeScoreDiscr"] = pd.qcut(df["Age"], 10, labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    df["BalanceScoreDiscr"] = pd.qcut(df["Balance"], 2, labels = [1, 2])
+    df["EstimatedSalaryDiscr"] = pd.qcut(df["EstimatedSalary"], 10, labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    df["Balance_parrapport_salaire"] = df["Balance"]/df["EstimatedSalary"]
+    df["Tenure_par_age"] = df["Tenure"]/(df["Age"])
+    df["CreditScore_par_Age"] = df["CreditScore"]/(df["Age"])
+    df["Salaire_par_age"] = df["EstimatedSalary"]/(df["Age"])
+    return df
+transformer_fe = FunctionTransformer(feature_engineering_and_discretization)
+
+def null_func(x):
+    return x
+transformer_null = FunctionTransformer(null_func)
+
+Cat_feat = ['HasCrCard','IsActiveMember']
+Num_feat = ['CreditScore','Age','Balance','EstimatedSalary','Tenure','NumOfProducts']
+Ohe_feat = ['Geography','Gender']
+
+ohe_pipe = Pipeline([('encoder', OneHotEncoder(drop='first', sparse=False))])
+
+num_pipe = Pipeline([('scaler', StandardScaler())])
+
+cat_pipe = Pipeline(steps=[('notransform', transformer_null)])
+
+preprocessor = ColumnTransformer(transformers=[('ohe', ohe_pipe, Ohe_feat),
+                                               ('num', num_pipe, Num_feat)])
+
+pipe_preprocessing = Pipeline([('preprocessing', preprocessor)])
+
+X_train = pipe_preprocessing.fit_transform(X_train,y_train)
+X_test = pipe_preprocessing.transform(X_test)
+```
+
 <p align="justify">
 On commence par une étape de feature engeneering pour créer de nouvelles variables à partir de celles que l’on a déjà. On crée notamment trois nouvelles variables en divisant une variable existante par l’âge. Par exemple, on divise la variable estimant le salaire de l’individu par son âge. Cette variable permettra à l’algorithme de comparer les salaires estimés par rapport à l’âge des individus . On effectue aussi une discrétisation des variables continues. Pour les variables « Geography » et « Gender », on réalise un encodage « one_hot » permettant de créer autant de variables qu’il y a de modalités différentes. On supprimer la première variable car elle n’apporte pas d’information supplémentaire. On standardise les variables numériques. L’ensemble de ces étapes sont rassemblés dans une pipeline finale qui est donc la pipeline de preprocessing. Cette pipeline permet d’industrialiser le modèle plus rapidement. On applique la pipeline aux données.
 </p>
