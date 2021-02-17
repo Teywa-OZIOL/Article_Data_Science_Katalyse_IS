@@ -41,6 +41,7 @@ Le boosting
 Le boosting fonctionne d'une manière différente. Au lieu d'entraîner les apprenants faibles sur une partie aléatoire du dataset, les apprenants faibles sont entrainés sur l’ensemble du dataset. Chaque apprenant faible s'entraîne en prenant en compte les erreurs effectuées par l'apprenant faible précédent. Cela permet d'avoir de la diversification dans le résultat de chaque modèle. On dit que les modèles sont construits séquentiellement.
 Si vous voulez en savoir plus sur la théorie concernant le boosting, </p>
 [consultez cet article](https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md) 
+
 <p align="justify">
 Pour l'implémentation sous python d'un algorithme de boosting, </p>  [cliquez ici](https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_1_Introduction_Ensemble_Learning.md)
 
