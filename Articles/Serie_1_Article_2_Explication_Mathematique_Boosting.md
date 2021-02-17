@@ -30,3 +30,38 @@ On répète ce processus autant de fois que l’on souhaite d’arbres. Le fait 
 <p align="justify">
 Si nous avons de nouvelles données, il suffit de les passer dans chacun des stumps. Chaque stump retourne une prédiction. Pour la classification, la prédiction final est le vote de chaque stump pondéré par leur poids. Si le vote pondéré pour la classification à 0 est supérieur au vote pondéré pour la classification à 1 alors on prédit à 0 la valeur de la nouvelle donnée. Pour la régression, la valeur finale sera la moyenne des résultats de chaque arbre pondéré par le poids de ce dernier. 
 </p>
+
+<p align="justify">
+Le gradient boosting est une deuxième implémentation de boosting. Il reprend les principes de base d’Adaboost en apportant quelques corrections. En effet, les deux algorithmes initialisent un apprenant fort et créent de manière séquentielle des apprenants faibles qui s’ajoutent à l’apprenant fort. Ils diffèrent sur la façon dont ils créent les apprenants faibles au cours du processus itératif. À chaque itération, Adaboost modifie les poids attachés à chacun des individus. L’apprenant faible se concentre donc davantage sur les cas difficiles en prenant particulièrement en compte les individus ayant un poids élevé. Quant à lui, le Gradient Boosting ne modifie pas des poids pour chacun des individus. Au lieu de s’entraîner sur les données, l’apprenant faible s’entraîne à prédire les résidus. C’est-à-dire l’erreur entre la valeur réelle et la valeur prédite. Plus la valeur du résidu de l’individu est grande et moins les arbres précédents sont arrivés à prédire correctement l’individu. Une prédiction de base est effectuée pour pouvoir calculer les résidus à la première itération. Une fonction de coût est utilisée pour calculer les résidus. C’est une autre façon de donner plus d’importance aux cas difficiles. Voici la formule pour calculer les résidus à l’itération j. 
+</p>
+
+
+<p align="justify">
+Un arbre de décision est ensuite créé pour prédire ces résidus. Pour chacun des arbres, il faut calculer la valeur de sortie de chacune de ses feuilles. La fonction de coût intervient une nouvelle fois. La valeur de sortie de la feuille k à l’itération j est : 
+</p>
+
+<p align="justify">
+On note que T est le nombre de feuilles de l’arbre de décision.
+Enfin, on ajoute l’arbre à l’apprenant fort pondéré par un learning rate. Le learning rate apparaît ici pour éviter de trop vite réduire les résidus dès les premières itérations pour éviter l’overfitting. C’est le choix de la fonction de coût qui permet de faire de la régression ou de la classification.
+</p>
+
+<p align="justify">
+Prenons par exemple la fonction de coût suivante pour la régression :
+</p>
+
+<p align="justify">
+On commence par initialiser l’apprenant fort F0(x) par une prédiction initiale. Pour la fonction de coût définie ci-dessus , la valeur de l’initialisation de chaque individu est la moyenne des valeurs de la variable cible. On calcule ensuite les résidus. Pour cette même fonction de coût, les résidus à l’itération j sont la différence entre la variable cible et F(j-1)(x) pour chaque individu. On entraine ensuite un arbre de décision sur ces résidus puis on calcule la valeur de sortie pour chaque feuille. Si l’on reprend la même fonction de coût, alors la valeur de sortie est la moyenne des résidus de la feuille. 
+L’Extreme Gradient Boosting reprend les bases du Gradient Boosting, on initialise un apprenant fort en lui donnant une valeur de base, on entraine chaque arbre pour prédire les résidus et il faut minimiser une fonction de coût. Cependant, plusieurs points diffèrent :
+</p>
+
+<p align="justify">
+- Nous avons la fonction suivante que l’on cherche à minimiser
+- L’entraînement de l’arbre est plus complexe. On va calculer un score de similarité puis un score de gain pour s’assurer que le meilleur arbre possible est construit. Voici la formule du score de similarité puis du score de gain. On répète cela pour construire un arbre ayant une profondeur prédéfinie. La profondeur de l’arbre est un hyperparamètre de l’algorithme. 
+- Une fois que l’arbre est construit, on va l’élaguer pour enlever les branches inutiles. Il n’y avait pas d’élagage pour le Gradient Boosting. Il faut fixer une valeur d’élagage, ce qui constitue un nouvel hyperparamètre de l’algorithme (gamma dans XGBoost).
+- On finit par calculer les valeurs de sortie pour chaque feuille de l’arbre :
+- On gère l’overfitting de trois manières différentes (dans le score de similarité, dans le calcul des valeurs de sorties et dans l’ajout de l’arbre à l’apprenant fort en ajoutant un learning rate). Pour le Gradient Boosting, on a seulement le learning rate pour gérer l’overfitting lorsque l’on ajoute l’arbre à l’apprenant fort. L’hyperparamètre qui intervient dans le score de similarité et dans le calcul des valeurs de sorties est lambda.
+</p>
+
+<p align="justify">
+Cet algorithme est extrêmement performant dans les compétitions de Machine Learning. Si vous souhaitez voir l’implémentation de XGBoost sur python, cliquez ici.
+</p>
