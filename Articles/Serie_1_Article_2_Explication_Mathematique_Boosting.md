@@ -16,7 +16,9 @@ Adaboost (ou adaptive boosting) est considéré comme le premier algorithme ense
 Chacun des arbres de décision est construit de manière séquentielle en prenant en compte les erreurs de l’arbre précédent. Pour cela, un poids est initialisé pour chaque individu. A chaque itération, on teste plusieurs stumps et on garde le meilleur au sens du gini score. Pour ce stump, on calcule l’erreur totale. Pour une tâche de classification l’erreur de l’arbre j est la somme des poids des individus ayant été mal classé. Voici la formule :
 </p>
 
-<div style="text-align:center"><img src="/Pictures/Image1.png" width="400" height="40"></div>
+<p align="center">
+  <img width="400" height="40" src="/Pictures/Image1.png">
+</p>
 
 <p align="justify">
 On attribue ensuite un poids à cet arbre. Ce poids dépend de l’erreur totale de l’arbre. On note que espilon est un terme correctif pour éviter des opérations interdites.
