@@ -22,7 +22,7 @@ Dans des algorithmes d’ensemble learning, les apprenants faibles doivent respe
 </p>
 
 <p align="justify">
-On distingue plusieurs types de techniques d'ensemble learning comme le boosting et le bagging. Il existe aussi le voting ou encore le stacking. FAIRE LIEN ARTICLE 4
+On distingue plusieurs types de techniques d'ensemble learning comme le boosting et le bagging. Il existe aussi le voting ou encore le stacking. <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">Voici un article présentant ces deux autres techniques d'ensemble learning.</a>
 </p>
 
 <p align="justify">
@@ -39,5 +39,5 @@ Le boosting
 
 <p align="justify">
 Le boosting fonctionne d'une manière différente. Au lieu d'entraîner les apprenants faibles sur une partie aléatoire du dataset, les apprenants faibles sont entrainés sur l’ensemble du dataset. Chaque apprenant faible s'entraîne en prenant en compte les erreurs effectuées par l'apprenant faible précédent. Cela permet d'avoir de la diversification dans le résultat de chaque modèle. On dit que les modèles sont construits séquentiellement.
-Si vous voulez en savoir plus sur la théorie concernant le boosting, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md">consultez cet article</a> Pour l'implémentation sous python d'un algorithme de boosting, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md">cliquez ici</a></p>
+Si vous voulez en savoir plus sur la théorie concernant le boosting, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md">consultez cet article</a> Pour l'implémentation sous python d'un algorithme de boosting, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cliquez ici</a></p>
 
