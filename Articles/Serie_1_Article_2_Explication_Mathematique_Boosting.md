@@ -33,7 +33,7 @@ On recalcule ensuite les poids des individus. Un individu ayant un poids élevé
 </p>
 
 <p align="center">
-  <img width="300" height="60" src="/Pictures/Image3.png">
+  <img width="300" height="80" src="/Pictures/Image3.png">
 </p>
 
 <p align="justify">
