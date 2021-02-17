@@ -2,7 +2,7 @@
 ## Explication mathématique des algorithmes de boosting 
 
 <p align="justify">
-Le boosting est un type d’algorithme de machine learning particulièrement performant sur des jeux de données structurées. Ce type d’algorithme appartient à la famille de l’ensemble learning. Si vous souhaitez savoir ce qu’est l’ensemble learning ainsi que les principes de bases du boosting, <a href="">lisez cet article</a>.
+Le boosting est un type d’algorithme de machine learning particulièrement performant sur des jeux de données structurées. Ce type d’algorithme appartient à la famille de l’ensemble learning. Si vous souhaitez savoir ce qu’est l’ensemble learning ainsi que les principes de bases du boosting, <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_1_Introduction_Ensemble_Learning.md">lisez cet article</a>.
 </p>
 
 <p align="justify">
