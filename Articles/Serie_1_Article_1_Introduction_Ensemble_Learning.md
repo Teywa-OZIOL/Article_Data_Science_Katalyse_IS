@@ -3,9 +3,9 @@
 
 Si vous disposez de données structurées et si vous souhaitez que votre algorithme de Machine Learning soit le plus performant possible, l'utilisation d'une méthode ensembliste s'avère souvent être le bon choix. D'ailleurs, l'algorithme roi des compétitions de Machine Learning (XGBoost) est un algorithme ensembliste.
  
-Nous définirons le concept d’ensemble learning dans cet article puis nous expliquerons deux types d’ensemble learning : boosting et le bagging.
+Nous définirons le concept d’ensemble learning dans ce premier article de la série puis nous expliquerons deux types d’ensemble learning : boosting et le bagging.
 
-L'ensemble learning est une technique de machine learning qui consiste à entraîner plusieurs centaines de modèles sur nos données puis de les agréger pour former un modèle final. Les modèles initiaux s'appellent les apprenants faibles (weak learner en anglais) et le modèle final est l'apprenant fort (strong learner).
+L'ensemble learning est une technique de machine learning qui consiste à entraîner plusieurs modèles (parfois des milliers) sur nos données puis de les agréger pour former un modèle final. Les modèles initiaux s'appellent les apprenants faibles (weak learner en anglais) et le modèle final est l'apprenant fort (strong learner).
  
 Les apprenants faibles peuvent être toutes sortes d'algorithmes de machine learning (arbre de décision, SVM, régression logistique, …). L'idée de l'ensemble learning est qu’un grand nombre de modèles sera plus performant qu'un seul modèle. En effet, c'est en comparant les résultats de chacun des modèles que l'apprenant fort fournira une prédiction de meilleure qualité qu’un algorithme seul.
  
