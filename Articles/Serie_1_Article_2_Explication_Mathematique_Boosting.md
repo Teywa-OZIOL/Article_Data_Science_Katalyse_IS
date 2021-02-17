@@ -88,14 +88,14 @@ L’Extreme Gradient Boosting reprend les bases du Gradient Boosting, on initial
     </li>
     <li>L’entraînement de l’arbre est plus complexe. On va calculer un score de similarité puis un score de gain pour s’assurer que le meilleur arbre possible est construit. Voici la formule du score de similarité puis du score de gain. 
       <p align="center">
-      <img width="400" height="60" src="/Pictures/Image8.png">
-      <img width="400" height="60" src="/Pictures/Image10.png">
+      <img width="500" height="60" src="/Pictures/Image8.png">
+      <img width="600" height="60" src="/Pictures/Image10.png">
       </p> 
       On répète cela pour construire un arbre ayant une profondeur prédéfinie. La profondeur de l’arbre est un hyperparamètre de l’algorithme.</li>
     <li>Une fois que l’arbre est construit, on va l’élaguer pour enlever les branches inutiles. Il n’y avait pas d’élagage pour le Gradient Boosting. Il faut fixer une valeur d’élagage, ce qui constitue un nouvel hyperparamètre de l’algorithme (gamma dans XGBoost).</li>
     <li>On finit par calculer les valeurs de sortie pour chaque feuille de l’arbre :</li>
       <p align="center">
-      <img width="400" height="60" src="/Pictures/Image9.png">
+      <img width="450" height="60" src="/Pictures/Image9.png">
       </p>
     <li>On gère l’overfitting de trois manières différentes (dans le score de similarité, dans le calcul des valeurs de sorties et dans l’ajout de l’arbre à l’apprenant fort en ajoutant un learning rate). Pour le Gradient Boosting, on a seulement le learning rate pour gérer l’overfitting lorsque l’on ajoute l’arbre à l’apprenant fort. L’hyperparamètre qui intervient dans le score de similarité et dans le calcul des valeurs de sorties est lambda.</li>
 </ul>
