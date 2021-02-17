@@ -18,7 +18,7 @@ Les apprenants faibles peuvent être toutes sortes d'algorithmes de machine lear
 </p>
 
 <p align="justify">
-Dans des algorithmes d’ensemble learning, les apprenants faibles doivent respecter deux conditions. Ils doivent avoir une performance strictement supérieure à 50% et leurs résultats doivent être différents les uns des autres. En effet, si chacun des apprenants faibles a une performance inférieure à 50% alors la performance de l'apprenant fort tendra vers 0. Au contraire, si chacun des apprenants faibles a une performance supérieure à 50% alors la performance de l'apprenant fort tendra vers 1. La deuxième affirmation s'explique par le fait que si tous les apprenants faibles réalisent les mêmes bonnes prédictions et les mêmes erreurs alors l'apprenant fort n'aura pas de performances supérieures à chacun des apprenants faibles.
+Dans des algorithmes d’ensemble learning, les apprenants faibles doivent respecter deux conditions. Ils doivent avoir une performance strictement supérieure à 50% et leurs résultats doivent être différents les uns des autres. En effet, si chacun des apprenants faibles a une performance inférieure à 50% alors la performance de l'apprenant fort tendra vers 0. Dans le cas contraire, la performance de l'apprenant fort tendra vers 1. La deuxième affirmation s'explique par le fait que si tous les apprenants faibles réalisent les mêmes bonnes prédictions et les mêmes erreurs alors l'apprenant fort n'aura pas de performances supérieures à chacun des apprenants faibles.
 </p>
 
 <p align="justify">
