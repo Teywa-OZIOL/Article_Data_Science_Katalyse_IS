@@ -5,29 +5,62 @@
 Cet article présente un exemple d’algorithme de Machine Learning utilisant XGBoost. L’objectif est de prédire quels sont les individus qui souhaitent quitter une banque dans les prochains mois.
 </p>
 
-### Le Voting / L’averaging 
+<p align="justify">
+Comme nous l’avons vu dans un articles précédent que vous pouvez consulter en cliquant ici, XGBoost est un algorithme de boosting qui est très performant sur des données structurées. Il possède un nombre d’hyperparamètre important ce qui permet d’avoir une maitrise totale de l’entrainement du modèle et notamment un contrôle du sur-apprentissage.
+</p>  
 
 <p align="justify">
-Le voting est un modèle de classification qui consiste à entrainer plusieurs algorithmes de Machine Learning différents sur un même jeu de données.  Pour connaitre la prédiction finale, on effectue un vote entre l’ensemble des algorithmes entrainés. On peut utiliser deux types de vote pour définir la prédiction finale : le hard vote et le soft vote. Pour le hard vote, on compte le nombre d’algorithme prédisant chacune des classes. Par exemple, on a quatre algorithmes, les trois premiers algorithmes prédisent la classe 0 et le dernier algorithme prédit la classe 1. La prédiction finale sera ainsi la classe 0 car elle a obtenu la majorité lors du vote. On peut aussi affecté un poids à chaque modèle et faire un vote pondéré par ces poids pour connaitre la prédiction finale. Le soft vote consiste à faire la moyenne des probabilités d’appartenance à chaque classe. La prédiction finale sera la classe ayant la moyenne d’appartenance la plus élevée. On peut également pondérer ces moyennes par des poids. 
+Le dataset a été téléchargé sur le site kaggle disponible en cliquant sur : <a href="https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers">ce lien</a>
 </p>  
 
 <p align="justify">
 L’averaging est utilisé pour une régression. C’est le même principe que le voting. On effectue la moyenne des prédictions de chaque algorithme pour connaitre la valeur finale prédite. Cette moyenne peut aussi être pondérée par des poids affectés à chacun des modèles. 
 </p>  
 
-### Le Stacking
+<p align="justify">
+Présentation de l’algorithme :
+</p>  
+
+### Analyse exploratoire
 
 <p align="justify">
-Le stacking est une nouvelle technique d’ensemble learning. Comme pour le voting, on va entrainer plusieurs modèles de machine learning sur un même dataset. Chaque algorithme effectuera une prédiction sur chacun des individus. Cela permettra de construire un nouveau jeu de données contenant N lignes et M colonnes avec N le nombre d’individus et M le nombre d’algorithmes. On entrainera un dernier algorithme de machine learning sur ce nouveau jeu de données. Ce dernier algorithme ne s’entrainera donc pas sur les données initiales mais sur les prédictions de ces données réalisées par les autres algorithmes. Ce dernier algorithme nous donnera la prédiction finale d’un modèle de stacking.
+Après avoir chargé les données dans un notebook jupyter, on réalise une analyse exploratoire afin de bien les comprendre. Nous avons 10 variables explicatives comme l’âge de l’individu, son sexe ou encore la localisation de l’individu. Il y a aussi le nombre d’année de l’individu en tant que client dans la banque, s’il possède une carte de crédit et s’il est un membre actif pour la banque. Nous avons enfin le score de crédit attribué à l’individu, sa balance sur ses comptes, le nombre de produits financiers auquel il a souscrit et l’estimation de son salaire. Les variables “RowNumer” , “CustomerId” et “Surname” ont été supprimé car elles sont inutiles. La variable cible est la variable binaire « Exited » (0 si le client veut rester et 1 s’il veut partir). 
 </p>
 
 <p align="justify">
-De manière plus générale, le stacking consiste à empiler des couches de modèles (apprenants faibles) pour former un unique modèle (apprenant fort). On a une première couche de modèle qui effectue des prédictions pour chaque individu du dataset. On crée ensuite un nouveau jeu de données de taille n*m avec n le nombre d’individu de la base et m le nombre de modèle de la couche précédente. Les modèles de la seconde couche s’entraineront à partir des prédictions des modèles de la couche précédente. On peut définir autant de couches que l’on souhaite. Le modèle final prend en entrée les prédictions de chaque modèle de la couche précédente et propose en sortie une prédiction unique pour chaque individu. C’est le méta-modèle (ou meta-learner). En pratique, on a souvent une seule couche d’algorithmes puis le méta-modèle.
+La phase d’analyse exploratoire nous apprend qu’il n’y a pas de valeurs manquantes. Les variables « Geography » et « Gender » sont des variables qualitatives sous la forme de chaines de caractères. Les autres variables possèdent des valeurs numériques. Les variables « HasCrCard » et « IsActiveMember » sont qualitatives et les autres sont quantitatives. On analyse la distribution de ces variables. On remarque par exemple que les personnes ont soit une balance nulle soit une balance de plus de 50 000 euros. Les clients possèdent souvent un ou deux produits financiers. Il y a que de faibles corrélations entre les variables. On s’aperçoit que les personnes souhaitant quitter la banque sont plutôt des femmes, des membres inactifs et des allemands. Les variables âge et balance jouent également un rôle clé puisque les personnes qui souhaitent quitter la banque sont plus âgés que les personnes souhaitant y rester. Les personnes qui possèdent une balance nulle ne souhaite pas quitter la banque.
+</p>
+
+### Preprocessing
+
+<p align="justify">
+On peut maintenant réaliser le preprocessing des données. Nous créons au préalable une base d’entrainement et une base de test en utilisant la fonction « train_test_split() ». Voici le preprocessing effectué :
 </p>
 
 <p align="justify">
-On peut faire une analogie entre le stacking et les réseaux de neurones. En effet, dans les deux cas, on a un jeu de données en entrée puis des couches successives avant d’avoir un objet de sortie effectuant la prédiction. Dans le stacking, les éléments de chaque couche sont des modèles de machine learning et l’objet de sortie est le méta-modèle. Dans un réseau de neurones, chaque élément des couches sont des neurones puis on a une couche de neurones finales correspondant au méta-modèle pour le stacking.
+On commence par une étape de feature engeneering pour créer de nouvelles variables à partir de celles que l’on a déjà. On crée notamment trois nouvelles variables en divisant une variable existante par l’âge. Par exemple, on divise la variable estimant le salaire de l’individu par son âge. Cette variable permettra à l’algorithme de comparer les salaires estimés par rapport à l’âge des individus . On effectue aussi une discrétisation des variables continues. Pour les variables « Geography » et « Gender », on réalise un encodage « one_hot » permettant de créer autant de variables qu’il y a de modalités différentes. On supprimer la première variable car elle n’apporte pas d’information supplémentaire. On standardise les variables numériques. L’ensemble de ces étapes sont rassemblés dans une pipeline finale qui est donc la pipeline de preprocessing. Cette pipeline permet d’industrialiser le modèle plus rapidement. On applique la pipeline aux données.
 </p>
 
-### Mise en place des algorithmes sous Python :
+<p align="justify">
+Avant d’entrainer le modèle, on réalise un sur-échantillonage pour rééquilibrer les classes car le nombre de personnes souhaitant quitter la banque est largement inférieur au nombre de personnes souhaitant rester.
+</p>
 
+### Entrainement du modèle
+
+<p align="justify">
+On peut maintenant entrainer le modèle. On construit une grille de recherche et on teste plusieurs combinaisons d’hyperparamètres afin de trouver le meilleur modèle possible. L’optimisation se fait au sens de l’AUC (aire sous la courbe ROC) car les classes sont déséquilibrés. 
+</p>
+
+<p align="justify">
+Le modèle qui maximise l’AUC est le modèle suivant :
+</p>
+
+### Analyse des résultats
+
+<p align="justify">
+Après l’entrainement de l’algorithme, on prédit les valeurs pour les individus de la base de test. Nous pouvons obtenir directement la classe auquel l’individu appartient ou la probabilité d’appartenance à cette classe. Etant donné que les deux classes de la variable cible sont déséquilibré, la métrique la plus pertinente pour l’analyse des performances du modèle est l’AUC. Nous obtenons un score 0.75 par rapport à cette métrique. On peut aussi imaginé une optimisation par rapport au rappel ou à la précision en fonction des demandes de la banque concerné.
+</p>
+
+<p align="justify">
+Le rappel est la proportion de réels positifs que l’algorithme a correctement classé. La précision est la proportion d’individus classés comme positif et qui le sont vraiment. On peut modifier le seuil d’attribution des classes pour obtenir un rappel élevé mais avec une précision plus faible en contre partie ou avoir une forte précision mais avec un faible rappel. 
+</p>
