@@ -44,6 +44,7 @@ Si vous voulez en savoir plus sur la théorie concernant le boosting, </p>
 
 [consultez cet article](https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md)
 
+<a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_2_Explication_Mathematique_Boosting.md">Website</a>
 
 <p align="justify">
 Pour l'implémentation sous python d'un algorithme de boosting, </p>  [cliquez ici](https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_1_Introduction_Ensemble_Learning.md)
