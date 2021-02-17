@@ -33,7 +33,7 @@ On recalcule ensuite les poids des individus. Un individu ayant un poids élevé
 </p>
 
 <p align="center">
-  <img width="400" height="40" src="/Pictures/Image3.png">
+  <img width="200" height="40" src="/Pictures/Image3.png">
 </p>
 
 <p align="justify">
@@ -49,7 +49,7 @@ Le gradient boosting est une deuxième implémentation de boosting. Il reprend l
 </p>
 
 <p align="center">
-  <img width="800" height="40" src="/Pictures/Image4.png">
+  <img width="600" height="40" src="/Pictures/Image4.png">
 </p>
 
 
@@ -58,7 +58,7 @@ Un arbre de décision est ensuite créé pour prédire ces résidus. Pour chacun
 </p>
 
 <p align="center">
-  <img width="800" height="40" src="/Pictures/Image5.png">
+  <img width="600" height="40" src="/Pictures/Image5.png">
 </p>
 
 <p align="justify">
