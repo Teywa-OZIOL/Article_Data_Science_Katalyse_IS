@@ -10,7 +10,7 @@ Comme nous l’avons vu dans un articles précédent, XGBoost est un algorithme 
 </p>  
 
 <p align="justify">
-Le dataset a été téléchargé sur le site kaggle disponible en cliquant sur : <a href="https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers">ce lien</a>
+Le dataset a été téléchargé sur le site kaggle disponible en cliquant sur <a href="https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers">ce lien</a>
 </p>  
 
 ## Présentation de l’algorithme :
