@@ -33,6 +33,9 @@ On peut faire une analogie entre le stacking et les réseaux de neurones. En eff
 
 ### Mise en place des algorithmes sous Python
 
+<p align="justify">
+Il faut commercer par définir un certain nombre d'algortihmes. Nous souhaitons ici effectuer une classification, nous créons donc 6 classifiers. Nous avons un SVM, une forêt aléatoire, un KNN, une régression logistique, Adaboost et XGBoost. Ces classifiers sont optimisés par rapport aux données. On peut optimsier les algorithmes un après l'autre mais le mieux est d'optimiser l'ensemble des classifiers en même temps (pour le voting ou le stacking). En effet, l'objectif n'est pas que chaque algorithme soit le plus performant possible mais c'est que l'ensemble des classifieurs offre la performance optimale. Il est peut être préférable d'avoir un classifier moins performant mais plus diversifié car lorsqu'il sera assemblé avec les autres, la performance totale sera potentiellement meilleure qu'avec des algorithmes optimisés un à un.
+</p>
 
 ```python
 classifier1 = SVC(C = 50, kernel = "rbf", probability = True)
@@ -45,18 +48,25 @@ classifier6 = XGBClassifier(base_score=0.5, booster='gbtree', eta = 0.3, gamma=5
               max_depth=5,n_estimators=100, reg_lambda=5)
 ````
 
+##### Le voting
+
+<p align="justify">
+Pour définir l'algorithme de voting, on peut directement utiliser la fonction "VotingClassifier" de scikit learn. On précise dans cette fonction l'ensemble des classifieurs que l'on souhaite utiliser. On indique aussi la stratégie que l'on choisie. Ici, j'utilise un vote de type "soft" en affectant des poids pour chaque algorithme. La forêt aléatoire, Adaboost et XGBoost ont un poids deux fois plus important que les autres algorithmes. Il suffit ensuite d'entrainer le modèle et d'effectuer des prédictions sur la base de test pour évaluer la performance de notre algorithme.
+</p>
 
 ```python
-vclf1 = VotingClassifier(estimators=[('SVM', classifier1), ('RF', classifier2), 
+clf = VotingClassifier(estimators=[('SVM', classifier1), ('RF', classifier2), 
                                      ('KNN', classifier3), ('LR', classifier4),
                                      ('AdB', classifier5), ('XGB', classifier6)], voting='soft',weights=[1,2,1,1,2,2])
 
-vclf1 = vclf1.fit(X_train, y_train)
-y_pred2 = vclf1.predict(X_test)
+clf = clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
 
-print(confusion_matrix(y_test,y_pred2))
-print(accuracy_score(y_test,y_pred2))
+print(confusion_matrix(y_test,y_pred))
+print(accuracy_score(y_test,y_pred))
 ````
+
+##### Le stacking
 
 
 ```python
@@ -67,8 +77,10 @@ clf = StackingClassifier(estimators=estimators, final_estimator=LogisticRegressi
 
 clf.fit(X_train, y_train)
 
-y_pred2 = clf.predict(X_test)
+y_pred = clf.predict(X_test)
 
-print(confusion_matrix(y_test,y_pred2))
-print(accuracy_score(y_test,y_pred2))
+print(confusion_matrix(y_test,y_pred))
+print(accuracy_score(y_test,y_pred))
 ````
+
+##### Résultats des deux méthodes
