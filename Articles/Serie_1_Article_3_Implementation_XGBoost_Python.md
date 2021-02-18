@@ -25,7 +25,7 @@ Après avoir chargé les données dans un notebook jupyter, on réalise une anal
 La phase d’analyse exploratoire nous apprend qu’il n’y a pas de valeurs manquantes. Les variables « Geography » et « Gender » sont des variables qualitatives sous la forme de chaines de caractères. Les autres variables possèdent des valeurs numériques. Les variables « HasCrCard » et « IsActiveMember » sont qualitatives et les autres sont quantitatives. On analyse la distribution de ces variables. On remarque par exemple que les personnes ont soit une balance nulle soit une balance de plus de 50 000 euros. Les autres variables suivent une distribution gaussienne. Les clients possèdent souvent un ou deux produits financiers. Il y a uniquement de faibles corrélations entre les variables. On s’aperçoit que les personnes souhaitant quitter la banque sont plutôt des femmes, des membres inactifs et des allemands. Les variables âge et balance jouent également un rôle clé puisque les personnes qui souhaitent quitter la banque sont plus âgés que les personnes souhaitant y rester. Les personnes qui possèdent une balance nulle ne souhaite pas quitter la banque dans un cas général. Voici un extrait des graphiques permettant de décrire les éléments précédents : </p>
 
 <p align="center">
-  <img width="1000" height="1000" src="/Pictures/Image14.png">
+  <img width="700" height="700" src="/Pictures/Image14.png">
 </p>
 
 <p align="justify">
