@@ -67,7 +67,7 @@ Un arbre de décision est ensuite créé pour prédire ces résidus. Pour chacun
 
 <p align="justify">
 On note que T est le nombre de feuilles de l’arbre de décision.
-Enfin, on ajoute l’arbre à l’apprenant fort pondéré par un learning rate. Le learning rate apparaît ici pour éviter de trop vite réduire les résidus dès les premières itérations pour éviter l’overfitting. C’est le choix de la fonction de coût qui permet de faire de la régression ou de la classification.
+Enfin, on ajoute l’arbre à l’apprenant fort en le pondérant par un learning rate. Le learning rate apparaît ici pour éviter de trop vite réduire les résidus dès les premières itérations pour éviter l’overfitting. C’est le choix de la fonction de coût qui permet de faire de la régression ou de la classification.
 </p>
 
 <p align="justify">
