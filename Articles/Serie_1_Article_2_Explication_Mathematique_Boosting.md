@@ -100,7 +100,7 @@ L’Extreme Gradient Boosting reprend les bases du Gradient Boosting, on initial
       <img width="600" height="60" src="/Pictures/Image10.png">
       </p> 
       L'hyperparamètre lambda apparait sur le dénominateur pour diminuer la quantité et ainsi éviter l'overfitting.
-      On répète cela pour construire un arbre ayant une profondeur prédéfinie. La profondeur de l’arbre est un hyperparamètre de l’algorithme.</li>
+      On répète ces calculs pour construire un arbre ayant une profondeur prédéfinie. La profondeur de l’arbre est un hyperparamètre de l’algorithme.</li>
     <li>Une fois que l’arbre est construit, on va l’élaguer pour enlever les branches inutiles. Il n’y avait pas d’élagage pour le Gradient Boosting. Il faut fixer une valeur d’élagage, ce qui constitue un nouvel hyperparamètre de l’algorithme (gamma dans XGBoost).</li>
     <li>On finit par calculer les valeurs de sortie pour chaque feuille de l’arbre grâce à la formule suivante:
       <p align="center">
