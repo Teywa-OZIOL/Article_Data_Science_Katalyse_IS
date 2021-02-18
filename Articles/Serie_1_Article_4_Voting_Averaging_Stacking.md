@@ -32,3 +32,43 @@ On peut faire une analogie entre le stacking et les réseaux de neurones. En eff
 </p>
 
 ### Mise en place des algorithmes sous Python
+
+
+```python
+classifier1 = SVC(C = 50, kernel = "rbf", probability = True)
+classifier2 = RandomForestClassifier(n_estimators = 100, criterion = "gini", max_depth = 10,
+                                     max_features = "auto", n_jobs = 4, random_state = 1000)
+classifier3 = KNeighborsClassifier(n_neighbors=25,algorithm = 'kd_tree',n_jobs=4) 
+classifier4 = LogisticRegression(solver = 'newton-cg')
+classifier5 = AdaBoostClassifier(n_estimators = 50, learning_rate = 1)
+classifier6 = XGBClassifier(base_score=0.5, booster='gbtree', eta = 0.3, gamma=5,
+              max_depth=5,n_estimators=100, reg_lambda=5)
+````
+
+
+```python
+vclf1 = VotingClassifier(estimators=[('SVM', classifier1), ('RF', classifier2), 
+                                     ('KNN', classifier3), ('LR', classifier4),
+                                     ('AdB', classifier5), ('XGB', classifier6)], voting='soft',weights=[1,2,1,1,2,2])
+
+vclf1 = vclf1.fit(X_train, y_train)
+y_pred2 = vclf1.predict(X_test)
+
+print(confusion_matrix(y_test,y_pred2))
+print(accuracy_score(y_test,y_pred2))
+````
+
+
+```python
+estimators=[('RF', classifier2),('KNN', classifier3), ('LR', classifier4),
+            ('AdB', classifier5),('XGB',classifier6)]
+
+clf = StackingClassifier(estimators=estimators, final_estimator=LogisticRegression(solver = 'newton-cg'), verbose = 2, n_jobs = 4)
+
+clf.fit(X_train, y_train)
+
+y_pred2 = clf.predict(X_test)
+
+print(confusion_matrix(y_test,y_pred2))
+print(accuracy_score(y_test,y_pred2))
+````
