@@ -23,7 +23,7 @@ Chacun des arbres de décision est construit de manière séquentielle en prenan
 </p>
 
 <p align="justify">
-On attribue ensuite un poids à cet arbre. Ce poids dépend de l’erreur totale de l’arbre. On note que espilon est un terme correctif pour éviter des opérations interdites.
+On attribue ensuite un poids à cet arbre. Ce poids dépend de l’erreur totale de l’arbre. On note qu'espilon est un terme correctif pour éviter des opérations interdites.
 </p>
 
 <p align="center">
