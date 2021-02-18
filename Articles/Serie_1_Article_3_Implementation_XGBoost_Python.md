@@ -13,13 +13,7 @@ Comme nous l’avons vu dans un articles précédent, XGBoost est un algorithme 
 Le dataset a été téléchargé sur le site kaggle disponible en cliquant sur : <a href="https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers">ce lien</a>
 </p>  
 
-<p align="justify">
-L’averaging est utilisé pour une régression. C’est le même principe que le voting. On effectue la moyenne des prédictions de chaque algorithme pour connaitre la valeur finale prédite. Cette moyenne peut aussi être pondérée par des poids affectés à chacun des modèles. 
-</p>  
-
-<p align="justify">
-Présentation de l’algorithme :
-</p>  
+## Présentation de l’algorithme :
 
 ### Analyse exploratoire
 
