@@ -68,6 +68,7 @@ print(accuracy_score(y_test,y_pred))
 
 ##### Le stacking
 
+Pour effectuer du stacking sous python, on utilise la fonction "StackingClassifier" de scikit-learn. On construit ici un modèle de stacking contenant une couche de modèle puis le méta-modèle final qui est une régression logistique. On précise donc l'ensemble des classifiers que l'on souhaite utiliser puis l'estimateur final (la régression logistique). On peut effectuer ces traitements de manière parrallèle. On entraine l'algorthme final de stacking qui entrainera chacun des sous modèles utilisés. On peut ensuite déterminer les prédictions sur la base de test pour évaluer les performances de la solution.
 
 ```python
 estimators=[('RF', classifier2),('KNN', classifier3), ('LR', classifier4),
@@ -84,3 +85,5 @@ print(accuracy_score(y_test,y_pred))
 ````
 
 ##### Résultats des deux méthodes
+
+
