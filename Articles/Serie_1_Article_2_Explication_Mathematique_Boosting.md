@@ -10,7 +10,7 @@ Nous présenterons ici trois des algorithmes de boosting les plus populaires. No
 </p>
 
 <p align="justify">
-Adaboost (ou adaptive boosting) est considéré comme le premier algorithme ensembliste de type boosting. Il a été inventé par Yoav Freund et Robert Schapire au début du siècle. Comme tout algorithme ensembliste, Adaboost combine des apprenants faibles (weak learner) pour former un apprenant fort. Les apprenants faibles sont des arbres de décision, plus précisément des stumps (Arbre de décision avec une racine et deux feuilles). Cette restriction sur la profondeur de l’arbre permet à l’algorithme Adaboost de gérer l’overfitting. </p>
+Adaboost (ou adaptive boosting) est considéré comme le premier algorithme ensembliste de type boosting. Il a été inventé par Yoav Freund et Robert Schapire au début du siècle. Comme n'importe quel algorithme ensembliste, Adaboost combine des apprenants faibles (weak learner) pour former un apprenant fort. Les apprenants faibles sont des arbres de décision, plus précisément des stumps (Arbre de décision avec une racine et deux feuilles). Cette restriction sur la profondeur de l’arbre permet à l’algorithme Adaboost de gérer l’overfitting. </p>
 
 <p align="justify">
 Chacun des arbres de décision est construit de manière séquentielle en prenant en compte les erreurs de l’arbre précédent. Pour cela, un poids est initialisé pour chaque individu. A chaque itération, on teste plusieurs stumps et on garde le meilleur au sens du gini score. Pour ce stump, on calcule l’erreur totale. Pour une tâche de classification l’erreur de l’arbre j est la somme des poids des individus ayant été mal classé. Voici la formule :
