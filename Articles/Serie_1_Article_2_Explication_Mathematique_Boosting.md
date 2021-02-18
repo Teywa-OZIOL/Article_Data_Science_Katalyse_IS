@@ -37,7 +37,7 @@ On recalcule ensuite les poids des individus. Un individu ayant un poids élevé
 </p>
 
 <p align="justify">
-On répète ce processus autant de fois que l’on souhaite d’arbres. Le fait d’affecter un poids au individu force l’arbre de décision suivant à s’entrainer en particulier sur ces individus. A la fin du processus itératif, nous avons un certain nombre d’arbres et un poids affecté pour chaque arbre. Les meilleurs arbres sont ceux ayant un poids important, ils auront plus de pouvoir dans la prise de décision dans cet algorithme. 
+On répète ce processus autant de fois que l’on souhaite d’arbres. Le fait d’affecter un poids au individu force l’arbre de décision suivant à s’entrainer en particulier sur les individus ayant un poids fort. A la fin du processus itératif, nous avons un certain nombre d’arbres et un poids affecté pour chaque arbre. Les meilleurs arbres sont ceux ayant un poids important, ils auront plus de pouvoir pour la prise de décision dans cet algorithme. 
 </p>
 
 <p align="justify">
