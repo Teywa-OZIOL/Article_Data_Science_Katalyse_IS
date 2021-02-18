@@ -136,11 +136,35 @@ xgb2 = XGBClassifier(alpha=0.5, base_score=0.5, booster='gbtree', colsample_byle
 xgb2.fit(X_train,y_train)
 ```
 
-### Analyse des résultats
+### Analyse des performances de l'algorithme
 
 <p align="justify">
-Après l’entrainement de l’algorithme, on prédit les valeurs pour les individus de la base de test. Nous pouvons obtenir directement la classe auquel l’individu appartient ou la probabilité d’appartenance à cette classe. Etant donné que les deux classes de la variable cible sont déséquilibré, la métrique la plus pertinente pour l’analyse des performances du modèle est l’AUC. Nous obtenons un score 0.75 par rapport à cette métrique. On peut aussi imaginé une optimisation par rapport au rappel ou à la précision en fonction des demandes de la banque concerné.
-</p>
+Après l’entrainement de l’algorithme, on prédit les valeurs pour les individus de la base de test. On détermine ensuite les valeurs de plusieurs métriques pour pouvoir analyser les performances du modèle.
+</p>    
+
+
+```python
+y_pred = xgb2.predict(X_test)
+y_pred2 = xgb2.predict_proba(X_test)
+
+print("Rapport de classification :")
+print(classification_report(y_test,  y_pred))
+print("\nMatrice de confusion :")
+print(confusion_matrix(y_test, y_pred,normalize='true'))
+print(confusion_matrix(y_test, y_pred))
+print("\nROC score :")
+print(roc_auc_score(y_test,y_pred))
+print("\nAccuracy Score :")
+print(accuracy_score(y_test,y_pred))
+print("\nRecall score :")
+print(recall_score(y_test,y_pred))
+print("\nPrecision Score :")
+print(precision_score(y_test,y_pred))
+```
+
+<p align="justify">    
+Nous pouvons obtenir directement la classe auquel l’individu appartient ou la probabilité d’appartenance à cette classe. Etant donné que les deux classes de la variable cible sont déséquilibré, la métrique la plus pertinente pour l’analyse des performances du modèle est l’AUC. Nous obtenons un score 0.75 par rapport à cette métrique. On peut aussi imaginer une optimisation par rapport au rappel ou à la précision en fonction des demandes de la banque concerné.
+</p>   
 
 <p align="justify">
 Le rappel est la proportion de réels positifs que l’algorithme a correctement classé. La précision est la proportion d’individus classés comme positif et qui le sont vraiment. On peut modifier le seuil d’attribution des classes pour obtenir un rappel élevé mais avec une précision plus faible en contre partie ou avoir une forte précision mais avec un faible rappel. 
