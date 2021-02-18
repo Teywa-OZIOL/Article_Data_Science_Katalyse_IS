@@ -31,4 +31,4 @@ De manière plus générale, le stacking consiste à empiler des couches de mod�
 On peut faire une analogie entre le stacking et les réseaux de neurones. En effet, dans les deux cas, on a un jeu de données en entrée puis des couches successives avant d’avoir un objet de sortie effectuant la prédiction. Dans le stacking, les éléments de chaque couche sont des modèles de machine learning et l’objet de sortie est le méta-modèle. Dans un réseau de neurones, chaque élément des couches sont des neurones puis on a une couche de neurones finales correspondant au méta-modèle pour le stacking.
 </p>
 
-### Mise en place des algorithmes sous Python :
+### Mise en place des algorithmes sous Python
