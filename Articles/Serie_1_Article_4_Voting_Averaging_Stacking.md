@@ -34,7 +34,7 @@ On peut faire une analogie entre le stacking et les réseaux de neurones. En eff
 ### Mise en place des algorithmes sous Python
 
 <p align="justify">
-Il faut commercer par définir un certain nombre d'algortihmes. Nous souhaitons ici effectuer une classification, nous créons donc 6 classifiers. Nous avons un SVM, une forêt aléatoire, un KNN, une régression logistique, Adaboost et XGBoost. Ces classifiers sont optimisés par rapport aux données. On peut optimsier les algorithmes un après l'autre mais le mieux est d'optimiser l'ensemble des classifiers en même temps (pour le voting ou le stacking). En effet, l'objectif n'est pas que chaque algorithme soit le plus performant possible mais c'est que l'ensemble des classifieurs offre la performance optimale. Il est peut être préférable d'avoir un classifier moins performant mais plus diversifié car lorsqu'il sera assemblé avec les autres, la performance totale sera potentiellement meilleure qu'avec des algorithmes optimisés un à un.
+Il faut commercer par définir un certain nombre d'algorithmes. Nous souhaitons ici effectuer une classification, nous créons donc six classifiers. Nous avons un SVM, une forêt aléatoire, un KNN, une régression logistique, Adaboost et XGBoost. Ces classifiers sont optimisés par rapport aux données. On peut optimiser les algorithmes un après l'autre, mais le mieux est d'optimiser l'ensemble des classifiers en même temps (pour le voting ou le stacking). En effet, l'objectif n'est pas que chaque algorithme soit le plus performant possible mais c'est que l'ensemble des classifiers offre la performance optimale. Il est peut-être préférable d'avoir un classifier moins performant mais plus diversifié car lorsqu'il sera assemblé avec les autres, la performance totale sera potentiellement meilleure qu'avec des algorithmes optimisés un à un.
 </p>
 
 ```python
@@ -51,7 +51,7 @@ classifier6 = XGBClassifier(base_score=0.5, booster='gbtree', eta = 0.3, gamma=5
 ##### Le voting
 
 <p align="justify">
-Pour définir l'algorithme de voting, on peut directement utiliser la fonction "VotingClassifier" de scikit learn. On précise dans cette fonction l'ensemble des classifieurs que l'on souhaite utiliser. On indique aussi la stratégie que l'on choisie. Ici, j'utilise un vote de type "soft" en affectant des poids pour chaque algorithme. La forêt aléatoire, Adaboost et XGBoost ont un poids deux fois plus important que les autres algorithmes. Il suffit ensuite d'entrainer le modèle et d'effectuer des prédictions sur la base de test pour évaluer la performance de notre algorithme.
+Pour définir l'algorithme de voting, on peut directement utiliser la fonction "VotingClassifier" de scikit learn. On précise dans cette fonction l'ensemble des classifiers que l'on souhaite utiliser. On indique aussi la stratégie que l'on choisit. Ici, j'utilise un vote de type "soft" en affectant des poids pour chaque algorithme. La forêt aléatoire, Adaboost et XGBoost ont un poids deux fois plus important que les autres algorithmes. Il suffit ensuite d'entrainer le modèle et d'effectuer des prédictions sur la base de test pour évaluer la performance de notre algorithme.
 </p>
 
 ```python
@@ -69,7 +69,7 @@ print(accuracy_score(y_test,y_pred))
 ##### Le stacking
 
 <p align="justify">
-Pour effectuer du stacking sous python, on utilise la fonction "StackingClassifier" de scikit-learn. On construit ici un modèle de stacking contenant une couche de modèle puis le méta-modèle final qui est une régression logistique. On précise donc l'ensemble des classifiers que l'on souhaite utiliser puis l'estimateur final (la régression logistique). On peut effectuer ces traitements de manière parrallèle. On entraine l'algorthme final de stacking qui entrainera chacun des sous modèles utilisés. On peut ensuite déterminer les prédictions sur la base de test pour évaluer les performances de la solution.
+Pour effectuer du stacking sous python, on utilise la fonction "StackingClassifier" de scikit-learn. On construit ici un modèle de stacking contenant une couche de modèle puis le méta-modèle final qui est une régression logistique. On précise donc l'ensemble des classifiers que l'on souhaite utiliser puis l'estimateur final (la régression logistique). On peut effectuer ces traitements de manière parallèle. On entraine l'algorithme final de stacking qui entrainera chacun des sous-modèles utilisés. On peut ensuite déterminer les prédictions sur la base de test pour évaluer les performances de la solution.
 </p>
 
 ```python
