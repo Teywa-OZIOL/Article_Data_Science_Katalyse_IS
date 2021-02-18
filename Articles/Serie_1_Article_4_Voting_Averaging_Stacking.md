@@ -10,11 +10,11 @@ Si vous voulez en savoir plus sur les principes de l’ensemble learning,
 ### Le Voting / L’averaging 
 
 <p align="justify">
-Le voting est un modèle de classification qui consiste à entrainer plusieurs algorithmes de Machine Learning différents sur un même jeu de données.  Pour connaitre la prédiction finale, on effectue un vote entre l’ensemble des algorithmes entrainés. On peut utiliser deux types de vote pour définir la prédiction finale : le hard vote et le soft vote. Pour le hard vote, on compte le nombre d’algorithme prédisant chacune des classes. Par exemple, on a quatre algorithmes, les trois premiers algorithmes prédisent la classe 0 et le dernier algorithme prédit la classe 1. La prédiction finale sera ainsi la classe 0 car elle a obtenu la majorité lors du vote. On peut aussi affecté un poids à chaque modèle et faire un vote pondéré par ces poids pour connaitre la prédiction finale. Le soft vote consiste à faire la moyenne des probabilités d’appartenance à chaque classe. La prédiction finale sera la classe ayant la moyenne d’appartenance la plus élevée. On peut également pondérer ces moyennes par des poids. 
+Le voting est un modèle de classification qui consiste à entrainer plusieurs algorithmes de Machine Learning différents sur un même jeu de données. Pour connaître la prédiction finale, on effectue un vote entre l’ensemble des algorithmes entrainés. On peut utiliser deux types de vote pour définir la prédiction finale : le hard vote et le soft vote. Pour le hard vote, on compte le nombre d’algorithmes prédisant chacune des classes. Par exemple, on a quatre algorithmes, les trois premiers algorithmes prédisant la classe 0 et le dernier algorithme prédit la classe 1. La prédiction finale sera ainsi la classe 0 car elle a obtenu la majorité lors du vote. On peut aussi affecter un poids à chaque modèle et faire un vote pondéré par ces poids pour connaître la prédiction finale. Le soft vote consiste à faire la moyenne des probabilités d’appartenance à chaque classe. La prédiction finale sera la classe ayant la moyenne d’appartenance la plus élevée. On peut également pondérer ces moyennes par des poids. 
 </p>  
 
 <p align="justify">
-L’averaging est utilisé pour une régression. C’est le même principe que le voting. On effectue la moyenne des prédictions de chaque algorithme pour connaitre la valeur finale prédite. Cette moyenne peut aussi être pondérée par des poids affectés à chacun des modèles. 
+L’averaging est utilisé pour une régression. C’est le même principe que le voting. On effectue la moyenne des prédictions de chaque algorithme pour connaître la valeur finale prédite. Cette moyenne peut aussi être pondérée par des poids affectés à chacun des modèles. 
 </p>  
 
 ### Le Stacking
@@ -24,7 +24,7 @@ Le stacking est une nouvelle technique d’ensemble learning. Comme pour le voti
 </p>
 
 <p align="justify">
-De manière plus générale, le stacking consiste à empiler des couches de modèles (apprenants faibles) pour former un unique modèle (apprenant fort). On a une première couche de modèle qui effectue des prédictions pour chaque individu du dataset. On crée ensuite un nouveau jeu de données de taille n*m avec n le nombre d’individu de la base et m le nombre de modèle de la couche précédente. Les modèles de la seconde couche s’entraineront à partir des prédictions des modèles de la couche précédente. On peut définir autant de couches que l’on souhaite. Le modèle final prend en entrée les prédictions de chaque modèle de la couche précédente et propose en sortie une prédiction unique pour chaque individu. C’est le méta-modèle (ou meta-learner). En pratique, on a souvent une seule couche d’algorithmes puis le méta-modèle.
+De manière plus générale, le stacking consiste à empiler des couches de modèles (apprenants faibles) pour former un unique modèle (apprenant fort). On a une première couche de modèle qui effectue des prédictions pour chaque individu du dataset. On crée ensuite un nouveau jeu de données de taille n*m avec n le nombre d’individus de la base et m le nombre de modèles de la couche précédente. Les modèles de la seconde couche s’entraineront à partir des prédictions des modèles de la couche précédente. On peut définir autant de couches que l’on souhaite. Le modèle final prend en entrée les prédictions de chaque modèle de la couche précédente et propose en sortie une prédiction unique pour chaque individu. C’est le méta-modèle (ou meta-learner). En pratique, on a souvent une seule couche d’algorithmes puis le méta-modèle.
 </p>
 
 <p align="justify">
