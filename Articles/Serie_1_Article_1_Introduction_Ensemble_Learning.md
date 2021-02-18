@@ -30,7 +30,7 @@ Le bagging
 </p>
 
 <p align="justify">
-Le bagging (ou bootstrap aggreging) consiste à entraîner chaque apprenant faible sur un échantillon des données. Cet échantillon des données est tiré au hasard, selon la méthode d'échantillonnage bootstrapp. Cette technique permet de respecter la condition de diversité des apprenants faibles puisque chaque modèle de base ne sera pas entraîné sur les mêmes données. Les modèles sont entraînés de manière parallèle. On regroupe ensuite les résultats de chaque apprenant faible pour former l'apprenant fort. Pour une tâche de classification, chaque apprenant faible prédit une classe et la prédiction finale est la classe prédite le plus grand nombre de fois. Pour une tâche de régression, la prédiction finale est la moyenne des prédictions de chaque arbre. 
+Le bagging (ou bootstrap aggreging) consiste à entraîner chaque apprenant faible sur un échantillon des données. Cet échantillon des données est tiré au hasard (avec remise), selon la méthode d'échantillonnage bootstrapp. Cette technique permet de respecter la condition de diversité des apprenants faibles puisque chaque modèle de base ne sera pas entraîné sur les mêmes données. Les modèles sont entraînés de manière parallèle. On regroupe ensuite les résultats de chaque apprenant faible pour former l'apprenant fort. Pour une tâche de classification, chaque apprenant faible prédit une classe et la prédiction finale est la classe prédite le plus grand nombre de fois. Pour une tâche de régression, la prédiction finale est la moyenne des prédictions de chaque arbre. Une forêt aléatoire est un exemple d'algorithme de bagging considérant les arbres de décision comme apprenant faible.
 </p>
 
 <p align="justify">
