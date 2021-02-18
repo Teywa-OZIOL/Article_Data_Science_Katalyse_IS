@@ -6,7 +6,7 @@ Si vous disposez de données structurées et si vous souhaitez que votre algorit
 </p>
 
 <p align="justify">
- Nous définirons le concept d’ensemble learning dans ce premier article de la série puis nous expliquerons deux types d’ensemble learning : boosting et le bagging.
+Nous définirons le concept d’ensemble learning dans ce premier article de la série puis nous expliquerons deux types d’ensemble learning : le boosting et le bagging.
 </p>
 
 <p align="justify">
