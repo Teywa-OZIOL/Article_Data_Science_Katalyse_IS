@@ -6,7 +6,7 @@ Cet article présente un exemple d’algorithme de Machine Learning utilisant XG
 </p>
 
 <p align="justify">
-Comme nous l’avons vu dans un articles précédent que vous pouvez consulter en cliquant ici, XGBoost est un algorithme de boosting qui est très performant sur des données structurées. Il possède un nombre d’hyperparamètre important ce qui permet d’avoir une maitrise totale de l’entrainement du modèle et notamment un contrôle du sur-apprentissage.
+Comme nous l’avons vu dans un articles précédent, XGBoost est un algorithme de boosting qui est très performant sur des données structurées. Il possède un nombre d’hyperparamètres important permattant d’avoir une maitrise totale de l’entrainement du modèle et notamment un contrôle du sur-apprentissage.
 </p>  
 
 <p align="justify">
