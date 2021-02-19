@@ -142,5 +142,5 @@ service.delete()
 ```
 
 <p align="center">
-  <img width="400" height="40" src="/Pictures/Image15.png">
+  <img width="400" height="30" src="/Pictures/Image15.png">
 </p>
