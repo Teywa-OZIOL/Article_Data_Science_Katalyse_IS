@@ -4,13 +4,13 @@
 
 <p align="justify">
 L'industrialisation (ou le déploiement) d'un modèle de Mahcine Learning est la dernière étape du processus de construction d'un algorithme avant de pouvoir l'utiliser. 
-L'utilisation du cloud permet de faciliter grandement cette étape qui peut-être complexe.
+L'utilisation du cloud permet de faciliter grandement cette étape complexe.
 Il existe principalement deux types d'industrialisation : l'inférence en temps réel ou l'inférence par lot. 
 Nous verrons dans cet article un exemple d'industrialisation en temps réel en utilisant le service Azure Machine Learning. 
 </p>
 
 <p align="justify">
-On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. On enregistre la pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
+On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. On enregistre le pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
 </p>
 
 ### Enregistrement des modèles
@@ -39,7 +39,7 @@ ws = Workspace.from_config()
 ```
 
 <p align="justify">
-On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning. On précise le path de chacun des modèle ainsi que le nom que l'on a donné aux modèles. On précise l'esapce de travail dans lequel on souhaite enregistrer les modèles.
+On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning. On précise le path de chacun des modèle ainsi que le nom que l'on a donné aux modèles. On précise l'espace de travail dans lequel on souhaite enregistrer les modèles.
 </p>
 
 ```python
@@ -57,7 +57,7 @@ model2 = Model.register(model_path="./modelML2.pkl",
 ### Création du script d'inférence
 
 <p align="justify">
-On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré. Un script d'inférence contient obligatoirement les fonctions "init()" et "run()". On peut ajouter d'autres fonctions que l'on pourrait avoir besoin pour transformer les données. La fonction "init()" permet d'initialiser nos deux modèles. Il faut récupérer le path de chacun des modèles à partir de leurs noms puis de les charger à l'aide de la fonction "load()" des packages "joblib" ou "pickle". On aplique dans la fonction "run()" le modèle de preprocessing puis le modèle XGBoost aux nouvelles données. On retourne les prédictions des nouvelles données au format JSON. 
+On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré. Un script d'inférence contient obligatoirement les fonctions "init()" et "run()". On peut ajouter d'autres fonctions que l'on pourrait avoir besoin pour transformer les données. La fonction "init()" permet d'initialiser nos deux modèles. Il faut récupérer le path de chacun des modèles à partir de leurs noms puis de les charger à l'aide de la fonction "load()" des packages "joblib" ou "pickle". On applique dans la fonction "run()" le modèle de preprocessing puis le modèle XGBoost aux nouvelles données. On retourne les prédictions des nouvelles données au format JSON. 
 </p>
 
 ```python
@@ -107,7 +107,7 @@ with open(env_file,"w") as f:
 ### Définition de la configuration d'inférence et de déploiement puis déploiement du modèle
 
 <p align="justify">
-Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec les performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service. Les propriétés tel que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations de d'inférence et de déploiement définis plus tôt.
+Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec les performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service. Les propriétés telles que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations de d'inférence et de déploiement définis plus tôt.
 </p>
 
 ```python
@@ -148,7 +148,7 @@ service.delete()
 ### Requetâge du modèle pour prédire si un individu souhaite quitter la banque
 
 <p align="justify">
-Maintenant que l'algorithme est déployé dans un conteneur hebergé dans le cloud Azure, on peut appeler l'algorithme pour scorer de nouvelles données. On quitte l'espace de travail et on ouvre un nouveau fichier indépendant des scripts précédants. On va envoyer une requete vers le service ACI qui héberge le modèle. Il faut plusieurs éléments pour que la requête puisse êtra valide. Il faut l'uri que l'on a récupéré précédemment, des authentifiants pour accéder au modèle que l'on précise dans "headers" (il n'y en a pas besoin ici) et les nouvelles données à scorer. On poste la requête et on récupère les résultats que l'on affiche.
+Maintenant que l'algorithme est déployé dans un conteneur hébergé dans le cloud Azure, on peut appeler l'algorithme pour scorer de nouvelles données. On quitte l'espace de travail et on ouvre un nouveau fichier indépendant des scripts précédents. On va envoyer une requête vers le service ACI qui héberge le modèle. Il faut plusieurs éléments pour que la requête puisse être valide. Il faut l'uri que l'on a récupéré précédemment, des authentifiants pour accéder au modèle que l'on précise dans "headers" (il n'y en a pas besoin ici) et les nouvelles données à scorer. On poste la requête et on récupère les résultats que l'on affiche.
 </p>
 
 ```python
@@ -178,9 +178,9 @@ Voici les résultats :
 </p>
 
 <p align="justify">
-Cet allemand de 32 ans ne souhaite pas quitter la banque puisqu'il appartient à la classe 0. La probabilité d'appartenance à cette classe est élevée puisqu'elle est de 97.9%. Il y a donc 2.1% de chances que cet individu quitte la banque dans les prochains mois.
+Cet Allemand de 32 ans ne souhaite pas quitter la banque puisqu'il appartient à la classe 0. La probabilité d'appartenance à cette classe est élevée puisqu'elle est de 97.9%. Il y a donc 2.1% de chances que cet individu quitte la banque dans les prochains mois.
 </p>
 
 <p align="justify">
-Après avoir déployé le modèle dans un Azure Container Service, on peut l'appeler à n'importe quel moment pour scorer de nouvelles données et savoir si d'autres clients souhaitent quitter leur banque. On peut ajouter un objet datacollector dans le script d'inférence pour récupérer les nouvelles données scorées et ainsi suivre les performacnes du modèle au cours du temps. Azure Machine Learing permet de faire ce suivi qui est indispensable lorsqu'un modèle est mis en production et utilisé fréquemment.
+Après avoir déployé le modèle dans un Azure Container Service, on peut l'appeler à n'importe quel moment pour scorer de nouvelles données et savoir si d'autres clients souhaitent quitter leur banque. On peut ajouter un objet datacollector dans le script d'inférence pour récupérer les nouvelles données scorées et ainsi suivre les performances du modèle au cours du temps. Azure Machine Learing permet de faire ce suivi qui est indispensable lorsqu'un modèle est mis en production et utilisé fréquemment.
 </p>
