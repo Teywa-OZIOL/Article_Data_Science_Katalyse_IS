@@ -78,12 +78,13 @@ def run(raw_data):
     predictions = model_xgb.predict_proba(model_pipe.transform(df))
     return json.dumps(predictions.tolist())
 ```
-```python
-from azureml.core.conda_dependencies import CondaDependencies 
 
 <p align="justify">
 azerty
 </p>
+
+```python
+from azureml.core.conda_dependencies import CondaDependencies 
 
 myenv = CondaDependencies()
 myenv.add_conda_package('scikit-learn=0.22.1')
