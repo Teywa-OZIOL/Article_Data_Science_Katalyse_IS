@@ -25,12 +25,61 @@ pickle.dump(xgb_model, open("modelML2.pkl", "wb"))
 On dispose de ces deux fichiers puis on utilise un espace de travail sous Azure Machine Learning.
 </p>
 
+<p align="justify">
+On commence par définir son espace de travail qui sera contenu dans la variable "ws".
+</p>
+
+```python
+from azureml.core import Workspace
+ws = Workspace.from_config()
+```
+
+<p align="justify">
+On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning.
+</p>
+
+```python
+from azureml.core.model import Model
+
+model1 = Model.register(model_path="./pipeline_processing.pkl",
+                    model_name="pipeline_processing",
+                    workspace=ws)
+
+model2 = Model.register(model_path="./modelML2.pkl",
+                    model_name="modelML2",
+                    workspace=ws)
+```
+<p align="justify">
+On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré.
+</p>
+
+```python
+%%writefile $script_file
+import json
+import pickle
+import joblib
+import numpy as np
+import pandas as pd
+from azureml.core.model import Model
+
+def init():
+    global model_pipe
+    global model_xgb
+        
+    model_path1 = Model.get_model_path('pipeline_processing')
+    model_pipe = joblib.load(model_path1)
+    model_path2 = Model.get_model_path('modelML2')
+    model_xgb = pickle.load(open(model_path2, "rb"))
+
+
+def run(raw_data):
+    data = np.array(json.loads(raw_data)['data'])
+    df = pd.DataFrame(data ,columns=["CreditScore", "Geography", "Gender", "Age", "Tenure", "Balance", "NumOfProducts", "HasCrCard", "IsActiveMember", "EstimatedSalary"])  
+    predictions = model_xgb.predict_proba(model_pipe.transform(df))
+    return json.dumps(predictions.tolist())
+```
 
 <p align="center">
   <img width="700" height="700" src="/Pictures/Image14.png">
 </p>
-
-```python
-y_pred = xgb2.predict(X_test)
-```
 
