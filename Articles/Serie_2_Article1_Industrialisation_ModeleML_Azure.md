@@ -26,7 +26,7 @@ On dispose de ces deux fichiers puis on utilise un espace de travail sous Azure 
 </p>
 
 <p align="justify">
-On commence par définir son espace de travail qui sera contenu dans la variable "ws".
+On commence par définir son espace de travail qui sera contenu dans la variable "ws". Il suffit d'utiliser la fonction "from_config()" qui lit un fichier contenant les informations requises pour faire la connexion avec l'espace de travail.
 </p>
 
 ```python
@@ -35,7 +35,7 @@ ws = Workspace.from_config()
 ```
 
 <p align="justify">
-On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning.
+On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning. On précise le path de chacun des modèle ainsi que le nom que l'on a donné aux modèles. On précise l'esapce de travail dans lequel on souhaite enregistrer les modèles.
 </p>
 
 ```python
@@ -50,7 +50,7 @@ model2 = Model.register(model_path="./modelML2.pkl",
                     workspace=ws)
 ```
 <p align="justify">
-On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré.
+On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré. Un script d'inférence contient obligatoirement les fonctions "init()" et "run()". On peut ajouter d'autres fonctions que l'on pourrait avoir besoin pour transformer les données. La fonction "init()" permet d'initialiser nos deux modèles. Il faut récupérer le path de chacun des modèles à partir de leurs noms puis de les charger à l'aide de la fonction "load()" des packages "joblib" ou "pickle". On aplique dans la fonction "run()" le modèle de preprocessing puis le modèle XGBoost aux nouvelles données. On retourne les prédictions des nouvelles données au format JSON. 
 </p>
 
 ```python
@@ -81,6 +81,10 @@ def run(raw_data):
 ```python
 from azureml.core.conda_dependencies import CondaDependencies 
 
+<p align="justify">
+azerty
+</p>
+
 myenv = CondaDependencies()
 myenv.add_conda_package('scikit-learn=0.22.1')
 myenv.add_conda_package('xgboost')
@@ -99,7 +103,6 @@ from azureml.core.webservice import AciWebservice
 from azureml.core.model import InferenceConfig
 from azureml.core import Model
 
-# Configure the scoring environment
 inference_config = InferenceConfig(runtime= "python",
                                    entry_script=script_file,
                                    conda_file=env_file)
@@ -113,6 +116,8 @@ service = Model.deploy(ws, service_name, [model1, model2], inference_config, dep
 service.wait_for_deployment(True)
 print(service.state)
 ```
+
+
 ```python
 endpoint = service.scoring_uri
 print(endpoint)
