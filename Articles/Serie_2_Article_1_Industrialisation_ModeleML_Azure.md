@@ -90,7 +90,7 @@ def run(raw_data):
 ### Définition de l'envrionnement d'inférence
 
 <p align="justify">
-Il faut maintenant définir l'environnement python. Il faut ajouter certains packages en plus des packages de base pour que le script d'inférence puisse réaliser les calculs. On peut cloner l'environnement que l'on a utilisé pour le développement afin de s'assurer que tous les packages soient disponibles. On peut ajouter les packages souhaités un à un.
+Il faut maintenant définir l'environnement python. Il faut ajouter certains packages en plus des packages de base pour que le script d'inférence puisse réaliser les calculs. On peut cloner l'environnement que l'on a utilisé pour le développement afin d'être certain que tous les packages soient disponibles. On peut aussi ajouter les packages souhaités un à un.
 </p>
 
 ```python
@@ -108,7 +108,7 @@ with open(env_file,"w") as f:
 ### Définition de la configuration d'inférence et de déploiement puis déploiement du modèle
 
 <p align="justify">
-Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec les performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service. Les propriétés telles que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations de d'inférence et de déploiement définis plus tôt.
+Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec des performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service en production. Les propriétés telles que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations d'inférence et de déploiement définies plus tôt.
 </p>
 
 ```python
@@ -131,7 +131,7 @@ print(service.state)
 ```
 
 <p align="justify">
-On récupère l'uri désignant le conteneur ACI pour pourvoir interroger le modèle. L'industrialisation du modèle est terminée.
+On récupère l'uri désignant le conteneur ACI pour pourvoir interroger le modèle. L'industrialisation est maintenant terminée.
 </p>
 
 ```python
@@ -179,9 +179,9 @@ Voici les résultats :
 </p>
 
 <p align="justify">
-Cet Allemand de 32 ans ne souhaite pas quitter la banque puisqu'il appartient à la classe 0. La probabilité d'appartenance à cette classe est élevée puisqu'elle est de 97.9%. Il y a donc 2.1% de chances que cet individu quitte la banque dans les prochains mois.
+Cet Allemand de 32 ans ne souhaite pas quitter la banque puisqu'il appartient à la classe 0. La probabilité d'appartenance à cette classe est élevée puisqu'elle est de 97.9%. Il y a donc 2.1% de chances que cet individu souhaite quitter la banque dans les prochains mois.
 </p>
 
 <p align="justify">
-Après avoir déployé le modèle dans un Azure Container Service, on peut l'appeler à n'importe quel moment pour scorer de nouvelles données et savoir si d'autres clients souhaitent quitter leur banque. On peut ajouter un objet datacollector dans le script d'inférence pour récupérer les nouvelles données scorées et ainsi suivre les performances du modèle au cours du temps. Azure Machine Learing permet de faire ce suivi qui est indispensable lorsqu'un modèle est mis en production et utilisé fréquemment.
+Après avoir déployé le modèle dans un Azure Container Service, on peut l'appeler à n'importe quel moment pour scorer de nouvelles données et savoir si d'autres clients souhaitent quitter leur banque. On peut ajouter un objet datacollector dans le script d'inférence pour récupérer les nouvelles données scorées et ainsi suivre les performances du modèle au cours du temps. Azure Machine Learing permet de faire ce suivi qui est indispensable lorsqu'un modèle est mis en production.
 </p>
