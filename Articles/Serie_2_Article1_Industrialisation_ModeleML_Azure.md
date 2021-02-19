@@ -78,8 +78,65 @@ def run(raw_data):
     predictions = model_xgb.predict_proba(model_pipe.transform(df))
     return json.dumps(predictions.tolist())
 ```
+```python
+from azureml.core.conda_dependencies import CondaDependencies 
+
+myenv = CondaDependencies()
+myenv.add_conda_package('scikit-learn=0.22.1')
+myenv.add_conda_package('xgboost')
+
+env_file = os.path.join(folder_name,"scoring_env.yml")
+with open(env_file,"w") as f:
+    f.write(myenv.serialize_to_string())
 
 <p align="center">
   <img width="700" height="700" src="/Pictures/Image14.png">
 </p>
+```
 
+```python
+from azureml.core.webservice import AciWebservice
+from azureml.core.model import InferenceConfig
+from azureml.core import Model
+
+# Configure the scoring environment
+inference_config = InferenceConfig(runtime= "python",
+                                   entry_script=script_file,
+                                   conda_file=env_file)
+
+deployment_config = AciWebservice.deploy_configuration(cpu_cores = 1, memory_gb = 1)
+
+service_name = "first-scoring-service"
+
+service = Model.deploy(ws, service_name, [model1, model2], inference_config, deployment_config)
+
+service.wait_for_deployment(True)
+print(service.state)
+```
+```python
+endpoint = service.scoring_uri
+print(endpoint)
+```
+
+```python
+import requests
+import json
+
+endpoint = "http://8aaf3742-a34f-4abe-8473-be7eb300dda6.francecentral.azurecontainer.io/score"
+
+x_new = [[596, "Germany", "Male", 32, 3, 96709.1, 2, 0, 0, 41788.4]]
+
+input_json = json.dumps({"data": x_new})
+
+headers = { 'Content-Type':'application/json' }
+
+predictions = requests.post(endpoint, input_json, headers = headers)
+predicted_classes = json.loads(predictions.json())
+
+print(predicted_classes)
+```
+
+```python
+service = ws.webservices['first-scoring-service']
+service.delete(
+```
