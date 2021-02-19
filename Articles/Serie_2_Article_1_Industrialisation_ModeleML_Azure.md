@@ -3,17 +3,18 @@
 ## Industrialisation d'un algorithme de Machine Learning en tant que service en temps réel.
 
 <p align="justify">
-L'industrialisation (ou le déploiement) d'un modèle de Mahcine Learning est la dernière étape du processus de construction d'un algorithme avant de pouvoir d'être utilisé en production. 
-L'usage du cloud permet de faciliter grandement cette étape complexe.
+L'industrialisation (ou le déploiement) d'un modèle de Mahcine Learning est la dernière étape du processus de construction d'un algorithme avant d'être utilisé en production. 
+L'usage du cloud permet de faciliter cette étape complexe.
 Il existe principalement deux types d'industrialisation : l'inférence en temps réel ou l'inférence par lot. 
-Nous verrons dans cet article un exemple d'industrialisation en temps réel en utilisant le service Azure Machine Learning. 
-</p>
-
-<p align="justify">
-On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. On enregistre le pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
+Nous verrons dans cet article un exemple d'industrialisation en temps réel en utilisant le service Azure Machine Learning.
+On industrialise un modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. 
 </p>
 
 ### Enregistrement des modèles
+
+<p align="justify">
+On enregistre le pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
+</p>
 
 ```python
 from joblib import dump
@@ -39,7 +40,7 @@ ws = Workspace.from_config()
 ```
 
 <p align="justify">
-On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning. On précise le path de chacun des modèle ainsi que le nom que l'on a donné aux modèles. On précise l'espace de travail dans lequel on souhaite enregistrer les modèles.
+On inscrit en suite les deux fichiers en tant que modèle dans l'espace de travail Azure Machine Learning. On précise le path de chacun des modèle ainsi que le nom que l'on a donné aux modèles. On indique l'espace de travail dans lequel on souhaite enregistrer les modèles.
 </p>
 
 ```python
