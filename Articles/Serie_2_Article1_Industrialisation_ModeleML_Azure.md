@@ -9,6 +9,10 @@ Il existe principalement deux types d'industrialisation : l'inférence en temps 
 Nous verrons dans cet article un exemple d'industrialisation en temps réel en utilisant le service Azure Machine Learning. 
 </p>
 
+<p align="justify">
+On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans cet aricle.
+</p>
+
 <p align="center">
   <img width="700" height="700" src="/Pictures/Image14.png">
 </p>
