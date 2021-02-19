@@ -138,5 +138,9 @@ print(predicted_classes)
 
 ```python
 service = ws.webservices['first-scoring-service']
-service.delete(
+service.delete()
 ```
+
+<p align="center">
+  <img width="400" height="40" src="/Pictures/Image15.png">
+</p>
