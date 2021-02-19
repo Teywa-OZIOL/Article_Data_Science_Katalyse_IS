@@ -13,6 +13,8 @@ Nous verrons dans cet article un exemple d'industrialisation en temps réel en u
 On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. On enregistre la pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
 </p>
 
+### Enregistrement à la fin de l'étape de développement
+
 ```python
 from joblib import dump
 import pickle
@@ -24,6 +26,8 @@ pickle.dump(xgb_model, open("modelML2.pkl", "wb"))
 <p align="justify">
 On dispose de ces deux fichiers puis on utilise un espace de travail sous Azure Machine Learning.
 </p>
+
+### Enregistrement des modèles dans l'espace de travail
 
 <p align="justify">
 On commence par définir son espace de travail qui sera contenu dans la variable "ws". Il suffit d'utiliser la fonction "from_config()" qui lit un fichier contenant les informations requises pour faire la connexion avec l'espace de travail.
@@ -49,6 +53,9 @@ model2 = Model.register(model_path="./modelML2.pkl",
                     model_name="modelML2",
                     workspace=ws)
 ```
+
+### Création du script d'inférence
+
 <p align="justify">
 On crée un nouveau fichier python contenant le script d'inférence. On note que "script_file" désigne le chemin vers lequel le fichier sera enregistré. Un script d'inférence contient obligatoirement les fonctions "init()" et "run()". On peut ajouter d'autres fonctions que l'on pourrait avoir besoin pour transformer les données. La fonction "init()" permet d'initialiser nos deux modèles. Il faut récupérer le path de chacun des modèles à partir de leurs noms puis de les charger à l'aide de la fonction "load()" des packages "joblib" ou "pickle". On aplique dans la fonction "run()" le modèle de preprocessing puis le modèle XGBoost aux nouvelles données. On retourne les prédictions des nouvelles données au format JSON. 
 </p>
@@ -79,6 +86,8 @@ def run(raw_data):
     return json.dumps(predictions.tolist())
 ```
 
+### Définition de l'envrionnement d'inférence
+
 <p align="justify">
 Il faut maintenant définir l'environnement python. Il faut ajouter certains packages en plus des packages de base pour que le script d'inférence puisse réaliser les calculs. On peut cloner l'environnement que l'on a utilisé pour le développement afin de s'assurer que tous les packages soient disponibles. On peut ajouter les packages souhaités un à un.
 </p>
@@ -94,6 +103,8 @@ env_file = os.path.join(folder_name,"scoring_env.yml")
 with open(env_file,"w") as f:
     f.write(myenv.serialize_to_string())
 ```
+
+### Définition de la configuration d'inférence et de déploiement puis déploiement du modèle
 
 <p align="justify">
 Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec les performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service. Les propriétés tel que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations de d'inférence et de déploiement définis plus tôt.
@@ -118,11 +129,23 @@ service.wait_for_deployment(True)
 print(service.state)
 ```
 
+<p align="justify">
+On récupère l'uri désignant le conteneur ACI pour pourvoir interroger le modèle.
+</p>
 
 ```python
 endpoint = service.scoring_uri
 print(endpoint)
 ```
+<p align="justify">
+On peut aussi supprimer le web service en le récupérant à partir de son nom puis en utilisant la fonction "delete()" d'AzureML.
+</p>
+
+```python
+service = ws.webservices['first-scoring-service']
+service.delete()
+```
+### Requetâge du modèle pour prédire si un individu souhaite quitter la banque
 
 ```python
 import requests
@@ -142,10 +165,7 @@ predicted_classes = json.loads(predictions.json())
 print(predicted_classes)
 ```
 
-```python
-service = ws.webservices['first-scoring-service']
-service.delete()
-```
+
 
 <p align="center">
   <img width="400" height="30" src="/Pictures/Image15.png">
