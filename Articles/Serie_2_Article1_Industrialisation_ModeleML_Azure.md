@@ -80,7 +80,7 @@ def run(raw_data):
 ```
 
 <p align="justify">
-azerty
+Il faut maintenant définir l'environnement python. Il faut ajouter certains packages en plus des packages de base pour que le script d'inférence puisse réaliser les calculs. On peut cloner l'environnement que l'on a utilisé pour le développement afin de s'assurer que tous les packages soient disponibles. On peut ajouter les packages souhaités un à un.
 </p>
 
 ```python
@@ -93,11 +93,11 @@ myenv.add_conda_package('xgboost')
 env_file = os.path.join(folder_name,"scoring_env.yml")
 with open(env_file,"w") as f:
     f.write(myenv.serialize_to_string())
-
-<p align="center">
-  <img width="700" height="700" src="/Pictures/Image14.png">
-</p>
 ```
+
+<p align="justify">
+Une fois le script d'inférence et l'environnement définis, on possède tous les éléments de la configuration de l'inférence. On utilise la fonction "InferenceConfig()" en précisant le runtime puis le script d'inférence et l'environnement. Dans un second temps, on indique le conteneur que l'on souhaite ainsi que ces propriétés. Ici, j'utilise Azure Container Instance avec les performances minimales. Azure Container Instance est utilisé pour le développement et les tests. Pour de l'inférence en temps réel, il est préférable d'utiliser Azure Kubernetes Service. Les propriétés tel que le CPU et la mémoire dépendent de la fréquence et du volume des données à prédire, de la vitesse et du prix que l'on souhaite. On peut ensuite déployer le modèle. On précise l'espace de travail auquel ce déploiement est associé, le nom que l'on donne à ce service, les modèles et les configurations de d'inférence et de déploiement définis plus tôt.
+</p>
 
 ```python
 from azureml.core.webservice import AciWebservice
