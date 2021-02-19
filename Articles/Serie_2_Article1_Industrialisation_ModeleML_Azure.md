@@ -13,7 +13,7 @@ Nous verrons dans cet article un exemple d'industrialisation en temps réel en u
 On industrialise le modèle prédisant si un client veut quitter la banque dans les prochains mois. Cet algorithme est présenté dans <a href="https://github.com/Teywa-OZIOL/Article_Data_Science_Katalyse_IS/blob/main/Articles/Serie_1_Article_3_Implementation_XGBoost_Python">cet article</a>. On enregistre la pipeline de preprocessing ainsi que le modèle en utilisant la fonction "dump()" des packages "joblib" et "pickle" sous python. Ces modèles sont construits en local.
 </p>
 
-### Enregistrement à la fin de l'étape de développement
+### Enregistrement des modèles
 
 ```python
 from joblib import dump
@@ -27,7 +27,7 @@ pickle.dump(xgb_model, open("modelML2.pkl", "wb"))
 On dispose de ces deux fichiers puis on utilise un espace de travail sous Azure Machine Learning.
 </p>
 
-### Enregistrement des modèles dans l'espace de travail
+### Inscription des modèles dans l'espace de travail
 
 <p align="justify">
 On commence par définir son espace de travail qui sera contenu dans la variable "ws". Il suffit d'utiliser la fonction "from_config()" qui lit un fichier contenant les informations requises pour faire la connexion avec l'espace de travail.
@@ -147,6 +147,10 @@ service.delete()
 ```
 ### Requetâge du modèle pour prédire si un individu souhaite quitter la banque
 
+<p align="justify">
+Maintenant que l'algorithme est déployé dans un conteneur hebergé dans le cloud Azure, on peut appeler l'algorithme pour scorer de nouvelles données. On quitte l'espace de travail et on ouvre un nouveau fichier indépendant des scripts précédants. On va envoyer une requete vers le service ACI qui héberge le modèle. Il faut plusieurs éléments pour que la requête puisse êtra valide. Il faut l'uri que l'on a récupéré précédemment, des authentifiants pour accéder au modèle que l'on précise dans "headers" (il n'y en a pas besoin ici) et les nouvelles données à scorer. On poste la requête et on récupère les résultats que l'on affiche.
+</p>
+
 ```python
 import requests
 import json
@@ -165,8 +169,14 @@ predicted_classes = json.loads(predictions.json())
 print(predicted_classes)
 ```
 
-
+<p align="justify">
+Voici les résultats :
+</p>
 
 <p align="center">
   <img width="400" height="30" src="/Pictures/Image15.png">
+</p>
+
+<p align="justify">
+
 </p>
