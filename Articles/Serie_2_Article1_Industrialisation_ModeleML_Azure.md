@@ -130,7 +130,7 @@ print(service.state)
 ```
 
 <p align="justify">
-On récupère l'uri désignant le conteneur ACI pour pourvoir interroger le modèle.
+On récupère l'uri désignant le conteneur ACI pour pourvoir interroger le modèle. L'industrialisation du modèle est terminée.
 </p>
 
 ```python
@@ -178,5 +178,9 @@ Voici les résultats :
 </p>
 
 <p align="justify">
+Cet allemand de 32 ans ne souhaite pas quitter la banque puisqu'il appartient à la classe 0. La probabilité d'appartenance à cette classe est élevée puisqu'elle est de 97.9%. Il y a donc 2.1% de chances que cet individu quitte la banque dans les prochains mois.
+</p>
 
+<p align="justify">
+Après avoir déployé le modèle dans un Azure Container Service, on peut l'appeler à n'importe quel moment pour scorer de nouvelles données et savoir si d'autres clients souhaitent quitter leur banque. On peut ajouter un objet datacollector dans le script d'inférence pour récupérer les nouvelles données scorées et ainsi suivre les performacnes du modèle au cours du temps. Azure Machine Learing permet de faire ce suivi qui est indispensable lorsqu'un modèle est mis en production et utilisé fréquemment.
 </p>
